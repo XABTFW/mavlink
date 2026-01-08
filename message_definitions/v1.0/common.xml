@@ -8129,6 +8129,15 @@
       <field type="uint8_t" name="Pause_swarm">Pause swarm function.</field>
       <field type="uint8_t" name="continue_swarm">Continue_swarm swarm function.</field>
     </message>
+    <message id="12924" name="SWARM_OPERATION_ACK">
+      <description>Acknowledgment message for swarm operation completion (group change, leader change).</description>
+      <field type="uint64_t" name="timestamp">Timestamp in microseconds since system boot.</field>
+      <field type="uint8_t" name="target_system">Target system ID (aircraft that performed the operation).</field>
+      <field type="uint8_t" name="operation_type">Operation type: 1=GROUP_CHANGE, 2=LEADER_CHANGE.</field>
+      <field type="uint8_t" name="result">Operation result: 0=SUCCESS, 1=FAILED.</field>
+      <field type="uint32_t" name="old_value">Previous value before operation.</field>
+      <field type="uint32_t" name="new_value">New value after operation.</field>
+    </message>
     <message id="12930" name="TEST_MAVLINK">
       <description>Test Mavlink.</description>
       <field type="uint8_t" name="test1"> </field>
