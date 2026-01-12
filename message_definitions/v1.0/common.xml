@@ -8104,8 +8104,8 @@
      <message id="12921" name="UAV_INFO">
       <description>define the desired loacl information and the actual speed infomation of host.</description>
       <field type="uint32_t" name="mavid">mavid information.</field>
-      <field type="uint32_t" name="group_id">swarm group id.</field>  
-      <field type="uint8_t" name="is_leader">1 if leader, 0 if follower.</field>   
+      <field type="uint32_t" name="group_id">swarm group id.</field>
+      <field type="uint8_t" name="is_leader">1 if leader, 0 if follower.</field>
       <field type="float" name="lat">host lattitude information.</field>
       <field type="float" name="lon">host longitude infomation.</field>
       <field type="float" name="yaw">host yaw infomation.</field>
@@ -8143,6 +8143,26 @@
       <field type="uint8_t" name="test1"> </field>
       <field type="int16_t" name="test2"> </field>
       <field type="float" name="test3"> </field>
+    </message>
+    <message id="12931" name="SWARM_MISSION_ITEM">
+      <description>Swarm mission item for leader to broadcast waypoints to followers.</description>
+      <field type="uint64_t" name="timestamp">Timestamp in microseconds since system boot.</field>
+      <field type="uint8_t" name="group_id">Swarm group ID.</field>
+      <field type="uint8_t" name="leader_id">Leader aircraft ID.</field>
+      <field type="uint32_t" name="mission_id">Mission ID for detecting updates.</field>
+      <field type="uint16_t" name="total_count">Total number of waypoints in mission.</field>
+      <field type="uint16_t" name="current_seq">Current waypoint sequence being executed.</field>
+      <field type="uint16_t" name="seq">Waypoint sequence number.</field>
+      <field type="uint16_t" name="nav_cmd">Navigation command type.</field>
+      <field type="double" name="lat">Latitude in degrees.</field>
+      <field type="double" name="lon">Longitude in degrees.</field>
+      <field type="float" name="alt">Altitude in meters (AMSL).</field>
+      <field type="float" name="yaw">Yaw angle in radians.</field>
+      <field type="float" name="acceptance_radius">Waypoint acceptance radius in meters.</field>
+      <field type="float" name="loiter_radius">Loiter radius in meters.</field>
+      <field type="float" name="time_inside">Time to stay at waypoint in seconds.</field>
+      <field type="uint8_t" name="autocontinue">1 if auto-continue to next waypoint.</field>
+      <field type="uint8_t" name="sync_type">Sync type: 0=single, 1=start, 2=end, 3=clear.</field>
     </message>
 
   </messages>
