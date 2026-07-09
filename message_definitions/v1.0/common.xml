@@ -8164,6 +8164,93 @@
       <field type="uint8_t" name="autocontinue">1 if auto-continue to next waypoint.</field>
       <field type="uint8_t" name="sync_type">Sync type: 0=single, 1=start, 2=end, 3=clear.</field>
     </message>
+    <message id="12932" name="DYT_TARGET">
+      <description>Decoded DYT seeker target telemetry, including tracking state, line-of-sight angles, gimbal attitude, target box, and link health.</description>
+      <field type="uint64_t" name="timestamp" units="us">Timestamp since system boot.</field>
+      <field type="uint64_t" name="timestamp_sample" units="us">Telemetry frame receive timestamp since system boot.</field>
+      <field type="uint32_t" name="frame_counter">Decoded DYT telemetry frame counter.</field>
+      <field type="uint8_t" name="tracking_state">Tracking state: 0=SEARCH, 1=LOCKED, 2=TIMEOUT, 3=ERROR.</field>
+      <field type="uint8_t" name="video_source">Video source: 0=VIS_1, 1=VIS_2, 2=IR_1, 3=IR_2.</field>
+      <field type="uint8_t" name="tracking_algorithm">Tracking algorithm: 0=ADAPTIVE, 1=PERSON, 2=VEHICLE, 3=BUILDING.</field>
+      <field type="uint8_t" name="target_valid">1 if the seeker reports a valid locked target.</field>
+      <field type="uint8_t" name="auto_hint">1 if an automatic lock candidate or target hint is visible.</field>
+      <field type="uint8_t" name="image_enhance">1 if image enhancement is active.</field>
+      <field type="uint8_t" name="recording">1 if recording is active.</field>
+      <field type="uint8_t" name="motor_on">1 if the seeker motor is on.</field>
+      <field type="uint8_t" name="follow_mode">1 if the gimbal reports follow mode.</field>
+      <field type="uint8_t" name="laser_on">1 if laser/rangefinder output is active.</field>
+      <field type="uint8_t" name="selftest_done">1 if DYT self-test has completed.</field>
+      <field type="uint8_t" name="gyro_calib_failed">1 if gyro calibration failed.</field>
+      <field type="uint8_t" name="servo_fault">1 if a servo fault is reported.</field>
+      <field type="uint8_t" name="image_board_fault">1 if an image board fault is reported.</field>
+      <field type="float" name="los_x_rad" units="rad">Horizontal image line-of-sight error.</field>
+      <field type="float" name="los_y_rad" units="rad">Vertical image line-of-sight error.</field>
+      <field type="float" name="gimbal_roll_rad" units="rad">Gimbal roll angle.</field>
+      <field type="float" name="gimbal_pitch_rad" units="rad">Gimbal pitch angle.</field>
+      <field type="float" name="gimbal_yaw_rad" units="rad">Gimbal yaw angle.</field>
+      <field type="float" name="gimbal_roll_rate_rad_s" units="rad/s">Gimbal roll rate.</field>
+      <field type="float" name="gimbal_pitch_rate_rad_s" units="rad/s">Gimbal pitch rate.</field>
+      <field type="float" name="gimbal_yaw_rate_rad_s" units="rad/s">Gimbal yaw rate.</field>
+      <field type="float" name="bbox_width_px">Target bounding-box width in pixels.</field>
+      <field type="float" name="bbox_height_px">Target bounding-box height in pixels.</field>
+      <field type="float" name="range_m" units="m">Target range. NaN if unavailable.</field>
+      <field type="float" name="zoom_ratio">Seeker zoom ratio.</field>
+      <field type="float" name="frame_dt_s" units="s">Time between decoded telemetry frames.</field>
+      <field type="float" name="last_rx_age_s" units="s">Age of the last received DYT telemetry sample.</field>
+      <field type="uint16_t" name="parse_error_count">Total DYT telemetry parse errors.</field>
+      <field type="uint8_t" name="status1">Raw decoded DYT status byte 1.</field>
+      <field type="uint8_t" name="status2">Raw decoded DYT status byte 2.</field>
+      <field type="uint8_t" name="status3">Raw decoded DYT status byte 3.</field>
+      <field type="uint8_t" name="self_test_raw">Raw DYT self-test/status byte.</field>
+    </message>
+    <message id="12933" name="DYT_COMMAND">
+      <description>DYT seeker command topic mirrored over MAVLink for monitoring or ground-control integration.</description>
+      <field type="uint64_t" name="timestamp" units="us">Timestamp since system boot.</field>
+      <field type="uint8_t" name="command">DYT command: 0=NONE, 1=AUTO_LOCK, 2=STOP_TRACK, 3=RETRIGGER, 4=NOFOLLOW, 5=CENTER, 6=YAW_FOLLOW, 7=ELECT_LOCK, 8=ELECT_UNLOCK, 9=LOCK_VIEW, 10=CENTER_GIMBAL, 11=SET_FRAME_ANGLE, 12=SEARCH_RATE, 13=SEND_OWNSHIP_STATE, 14=GEO_TRACK, 15=GEO_TRACK_EXIT.</field>
+      <field type="int16_t" name="param_x">Command parameter X. For frame-angle commands this is yaw in centidegrees.</field>
+      <field type="int16_t" name="param_y">Command parameter Y. For frame-angle commands this is pitch in centidegrees.</field>
+      <field type="uint8_t" name="param3">Command parameter 3.</field>
+      <field type="int8_t" name="zoom_rate">Zoom rate command.</field>
+      <field type="double" name="lat" units="deg">Latitude used by ownship-state and geographic tracking commands.</field>
+      <field type="double" name="lon" units="deg">Longitude used by ownship-state and geographic tracking commands.</field>
+      <field type="float" name="alt" units="m">Altitude used by ownship-state and geographic tracking commands.</field>
+      <field type="float" name="rel_alt" units="m">Relative altitude used by ownship-state and geographic tracking commands.</field>
+      <field type="float" name="roll_rad" units="rad">Ownship roll for geographic tracking.</field>
+      <field type="float" name="pitch_rad" units="rad">Ownship pitch for geographic tracking.</field>
+      <field type="float" name="yaw_rad" units="rad">Ownship yaw for geographic tracking.</field>
+      <field type="float" name="airspeed_m_s" units="m/s">Ownship airspeed for geographic tracking.</field>
+      <field type="float" name="groundspeed_m_s" units="m/s">Ownship groundspeed for geographic tracking.</field>
+    </message>
+    <message id="12934" name="DYT_GUIDANCE_STATUS">
+      <description>DYT guidance controller state and terminal-guidance setpoints mirrored from the dyt_guidance_status uORB topic.</description>
+      <field type="uint64_t" name="timestamp" units="us">Timestamp since system boot.</field>
+      <field type="uint8_t" name="state">Guidance state: 0=IDLE, 1=SEARCH_WAIT_LOCK, 2=TRACK_FOLLOW, 3=TRACK_INTERCEPT, 4=LOST_HOLD, 5=ABORT.</field>
+      <field type="uint8_t" name="requested_submode">Requested submode: 0=FOLLOW, 1=INTERCEPT.</field>
+      <field type="uint8_t" name="active_submode">Active submode: 0=FOLLOW, 1=INTERCEPT.</field>
+      <field type="uint8_t" name="lost_reason">Lost reason: 0=NONE, 1=TRACKING, 2=TIMEOUT, 3=STALE, 4=MANUAL, 5=PRECONDITION, 6=JITTER.</field>
+      <field type="uint8_t" name="active">1 if DYT guidance is active.</field>
+      <field type="uint8_t" name="target_locked">1 if the seeker target is locked.</field>
+      <field type="uint8_t" name="controlling_vehicle">1 if DYT guidance currently owns trajectory/offboard setpoints for aircraft motion.</field>
+      <field type="uint8_t" name="target_fresh">1 if the latest target sample is fresh.</field>
+      <field type="uint8_t" name="intercept_allowed">1 if intercept submode is currently allowed.</field>
+      <field type="float" name="los_age_s" units="s">Age of the current target line-of-sight sample.</field>
+      <field type="float" name="frame_dt_s" units="s">Latest target telemetry frame interval.</field>
+      <field type="float" name="delay_s" units="s">Configured terminal-guidance pipeline delay.</field>
+      <field type="float" name="los_ned_x">Filtered line-of-sight vector in local NED X.</field>
+      <field type="float" name="los_ned_y">Filtered line-of-sight vector in local NED Y.</field>
+      <field type="float" name="los_ned_z">Filtered line-of-sight vector in local NED Z.</field>
+      <field type="float" name="omega_los_ned_x" units="rad/s">Estimated LOS angular rate vector in local NED X.</field>
+      <field type="float" name="omega_los_ned_y" units="rad/s">Estimated LOS angular rate vector in local NED Y.</field>
+      <field type="float" name="omega_los_ned_z" units="rad/s">Estimated LOS angular rate vector in local NED Z.</field>
+      <field type="float" name="velocity_sp_x" units="m/s">Terminal-guidance velocity setpoint in local NED X.</field>
+      <field type="float" name="velocity_sp_y" units="m/s">Terminal-guidance velocity setpoint in local NED Y.</field>
+      <field type="float" name="velocity_sp_z" units="m/s">Terminal-guidance velocity setpoint in local NED Z.</field>
+      <field type="float" name="acceleration_sp_x" units="m/s/s">Terminal-guidance acceleration feedforward in local NED X.</field>
+      <field type="float" name="acceleration_sp_y" units="m/s/s">Terminal-guidance acceleration feedforward in local NED Y.</field>
+      <field type="float" name="acceleration_sp_z" units="m/s/s">Terminal-guidance acceleration feedforward in local NED Z.</field>
+      <field type="float" name="yaw_sp" units="rad">Terminal-guidance yaw setpoint.</field>
+      <field type="float" name="yaw_rate_sp" units="rad/s">Terminal-guidance yaw-rate setpoint.</field>
+    </message>
 
   </messages>
 </mavlink>
